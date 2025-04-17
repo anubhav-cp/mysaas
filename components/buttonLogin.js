@@ -4,7 +4,7 @@ const buttonLogin = (props) => {
     const {hasLoggedIn, name} = props
     
     if(hasLoggedIn) {
-        return <Link href='dashboard'>Welcome {name}</Link>
+        return <Link href='dashboard' className="btn btn-primary">Welcome {name}</Link>
     }
         
     return <Link href=''>Please Login!</Link>
