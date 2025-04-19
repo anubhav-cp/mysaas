@@ -2,10 +2,11 @@ import ButtonLogin from "@/components/buttonLogin";
 import FaqListItem from "@/components/faqListItem";
 import Image from "next/image";
 import productDemo from "./productDemo.jpeg"
+import { auth } from "@/auth";
 
-export default function Home() {
-  const isLoggedIn = true;
-  const name = "Anubhav";
+export default async function Home() {
+  const session = await auth()
+  console.log(session)
 
   return (
     <main>
@@ -18,7 +19,7 @@ export default function Home() {
             <a className="link link-hover" href="#faq">FAQs</a>
           </div>
           <div>
-            <ButtonLogin hasLoggedIn={isLoggedIn} name={name} />
+            <ButtonLogin session={session} />
           </div>
         </div>
       </section>
@@ -35,7 +36,7 @@ export default function Home() {
           Create a feedback board in minutes, prioritize features, and build
           products your customers will love.
         </div>
-        <ButtonLogin hasLoggedIn={isLoggedIn} name={name} />
+        <ButtonLogin session={session} />
         
         </div>
       </section>
@@ -82,8 +83,6 @@ export default function Home() {
               })}
             </ul>
             <ButtonLogin
-              hasLoggedIn={isLoggedIn}
-              name={name}
               extraStyle={"w-full"}
             />
           </div>
