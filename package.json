@@ -12,6 +12,7 @@
     "@auth/mongodb-adapter": "^3.8.0",
     "autoprefixer": "^10.4.21",
     "mongodb": "^6.15.0",
+    "mongoose": "^8.13.2",
     "next": "14.2.0",
     "next-auth": "^5.0.0-beta.25",
     "react": "^18",
