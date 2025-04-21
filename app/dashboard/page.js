@@ -1,12 +1,48 @@
-"use client"
 
+import { auth } from "@/auth";
 import ButtonLogOut from "@/components/buttonLogOut";
+import FormBoard from "@/components/FormNewBoard";
+import connectMongo from "@/libs/mongoose";
+import User from "@/models/User";
 
-export default function Home() {
+
+
+const getUserData = async () => {
+  const session = await auth()
+
+  await connectMongo()
+
+  return await User.findById(session.user.id).populate('boards') 
+};
+
+
+export default async function Home() {
+
+  const user = await getUserData()
   return (
-   <main>
-    <h1>Private Dashboard</h1>
-    <ButtonLogOut />
+   <main className="bg-base-200 min-h-screen">
+    <section className="bg-base-100">
+      <div className="max-w-5xl mx-auto px-6 py-3 flex justify-end">
+      <ButtonLogOut />
+      </div>
+      
+    </section>
+
+    <section className=" max-w-5xl mx-auto px-5 py-12">
+      <FormBoard />
+      <div className="space-y-4">
+      <h1 className="font-extrabold text-xl">{user.boards.length} boards</h1>
+
+      <ul className="space-y-4">
+        {
+          user.boards.map((board) => {
+            return (<li key={  board._id } className="bg-base-100 p-8 rounded-3xl">{board.name}</li>)
+          })
+        }
+      </ul>
+    </div>
+    </section>
+    
     </main>
     
   );
