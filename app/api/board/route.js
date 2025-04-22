@@ -44,3 +44,46 @@ try {
     )
 }
 }
+
+export async function DELETE(req) {
+    try {
+        const {searchParams} = req.nextUrl
+        const boardId = searchParams.get("boardId") 
+        console
+
+        if(!boardId){
+            return NextResponse.json(
+                {error: 'BoardId is required'},
+                {status: 400}
+            )
+        }
+
+        const session = await auth()
+
+        if(!session){
+            return NextResponse.json(
+                {error: 'Not Authorized'},
+                {status: 401}
+            )
+        }
+
+        await Board.deleteOne({
+            _id: boardId,
+            userId: session?.user?.id
+        })
+        const user = await User.findById(session?.user?.id)
+        user.boards = user.boards.filter((id) => id.toString() !== boardId)
+
+        await user.save()
+
+        return NextResponse.json({})
+
+
+
+    } catch (error) {
+        return NextResponse.json(
+            {error: error.message},
+            {status: 500}
+        )
+    }
+}
