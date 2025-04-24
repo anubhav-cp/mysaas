@@ -10,6 +10,14 @@ const BoardSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    hasAccess: {
+        type: Boolean,
+        default: false
+    },
+    customerId: {
+        type: String,
+        
     }
 })
 

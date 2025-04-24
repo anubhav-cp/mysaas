@@ -1,5 +1,6 @@
 
 import { auth } from "@/auth";
+import ButtonCheckout from "@/components/ButtonCheckout";
 import ButtonLogOut from "@/components/buttonLogOut";
 import FormBoard from "@/components/FormNewBoard";
 import connectMongo from "@/libs/mongoose";
@@ -23,7 +24,8 @@ export default async function Home() {
   return (
    <main className="bg-base-200 min-h-screen">
     <section className="bg-base-100">
-      <div className="max-w-5xl mx-auto px-6 py-3 flex justify-end">
+      <div className="max-w-5xl mx-auto px-6 py-3 flex justify-between">
+        <ButtonCheckout />
       <ButtonLogOut />
       </div>
       
